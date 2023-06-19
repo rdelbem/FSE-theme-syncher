@@ -1,0 +1,18 @@
+{
+  "name": "rodrigodelbem/fse-theme-syncher",
+  "description": "A WordPress plugin to synchronize the changes made to a theme made through FSE across the instances of a WP installation",
+  "autoload": {
+    "psr-4": {
+      "FseThemeSyncher\\": "src/"
+    }
+  },
+  "authors": [
+    {
+      "name": "rdelbem",
+      "email": "rodrigodelbem@gmail.com"
+    }
+  ],
+  "require-dev": {
+    "friendsofphp/php-cs-fixer": "^3.18"
+  }
+}
