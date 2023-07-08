@@ -5,16 +5,23 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "lint-php": "./vendor/bin/php-cs-fixer fix --config=.php_cs.dist -v"
+    "lint-php": "./vendor/bin/php-cs-fixer fix ./src"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "composer run-script lint-php"
+      "pre-commit": "lint-staged"
     }
+  },
+  "lint-staged": {
+    "resources/**/*.{css,js}": [
+      "prettier --write"
+    ],
+    "**/*.php": "composer cs:fix-filtered"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "husky": "^8.0.3"
+    "husky": "^8.0.3",
+    "lint-staged": "^13.2.3"
   }
 }

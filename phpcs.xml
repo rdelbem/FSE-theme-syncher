@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<ruleset name="FSEThemeSyncher">
+    <description>PHP Code Sniffer configuration for FSEThemeSyncher</description>
+
+    <!-- Files to include -->
+    <file>src</file>
+    <file>tests</file>
+
+    <!-- Exclude folders -->
+    <exclude-pattern>vendor/*</exclude-pattern>
+
+        <!-- Show progress -->
+    <arg value="p"/>
+
+    <!-- Use colors in output -->
+    <arg value="-colors"/>
+
+    <!-- Set the default standard -->
+    <arg name="standard" value="PSR12"/>
+    <rule ref="PSR12" />
+
+    <!-- Check the code up to PHP 7.x -->
+    <config name="testVersion" value="7.1-"/>
+
+</ruleset>
