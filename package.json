@@ -4,10 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "no test specified",
+    "test": "echo no test specified",
+    "prepare": "husky install",
     "lint": "prettier --check .",
-    "format": "prettier --write .",
-    "prepare": "husky install"
+    "format": "prettier --write ."
   },
   "husky": {
     "hooks": {
