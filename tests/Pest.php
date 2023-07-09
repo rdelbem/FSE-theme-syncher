@@ -25,7 +25,8 @@
 */
 
 expect()->extend(
-    'toBeOne', function () {
+    'toBeOne',
+    function () {
         return $this->toBe(1);
     }
 );
