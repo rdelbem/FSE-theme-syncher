@@ -1,10 +1,8 @@
 <?php
 
-namespace FseThemeSyncher\core;
+namespace Tests;
 
 use FseThemeSyncher\core\WordPressDatabaseUtiliyClass;
-
-defined('WPINC') or die();
 
 /**
  * In this class we will define the table name we will be using

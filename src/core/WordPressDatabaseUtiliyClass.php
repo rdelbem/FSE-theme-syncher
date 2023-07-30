@@ -2,6 +2,8 @@
 
 namespace FseThemeSyncher\core;
 
+use \WP_Error;
+
 /**
  * Utility class, an abstraction around WP database
  * functions and data handling.
@@ -13,7 +15,7 @@ abstract class WordPressDatabaseUtiliyClass
      *
      * @var string
      */
-    protected $tableName;
+    public $tableName;
 
     /**
      * Constructor for the database class to inject the table name
@@ -30,9 +32,9 @@ abstract class WordPressDatabaseUtiliyClass
      *
      * @param  array $data - Data to enter into the database table
      *
-     * @return string | null
+     * @return array | null
      */
-    public function insert(array $data): string|null
+    public function insert(array $data): array|null
     {
         global $wpdb;
         if (empty($data)) {
@@ -41,9 +43,15 @@ abstract class WordPressDatabaseUtiliyClass
 
         try {
             $wpdb->insert($this->tableName, $data);
-            return 'Success, data was inserted' . $wpdb->insert_id;
+            return [
+                'error' => null,
+                'record' => $wpdb->insert_id
+            ];
         } catch (\Throwable $th) {
-            return 'Error: ' . $th;
+            return [
+                'error' => $th->getMessage(),
+                'record' => null
+            ];
         }
     }
 
@@ -106,22 +114,21 @@ abstract class WordPressDatabaseUtiliyClass
      * @param  array $data           - Array of data to be updated
      * @param  array $conditionValue - Key value pair for the where clause of the query
      *
-     * @return bool|int|\Throwable
+     * @return bool|int|WP_Error
      */
-    public function update(array $data, array $conditionValue): bool|int|\Throwable
+    public function update(array $data, array $conditionValue): bool|int|WP_Error
     {
-        global $wpdb;
-
         if (empty($data)) {
             return false;
         }
 
-        try {
-            $updated = $wpdb->update($this->tableName, $data, $conditionValue);
-            return $updated;
-        } catch (\Throwable $th) {
-            return $th;
+        global $wpdb;
+
+        $updated = $wpdb->update($this->tableName, $data, $conditionValue);
+        if($updated < 0) {
+            return new WP_Error('update-from-fse-theme-synch', 'It was not possible to update db.', $data);
         }
+        return $updated;
     }
 
     /**
@@ -129,9 +136,9 @@ abstract class WordPressDatabaseUtiliyClass
      *
      * @param  array $conditionValue - Key value pair for the where clause of the query
      *
-     * @return bool|int - Num rows deleted
+     * @return bool|int|WP_Error - Num rows deleted or an instance of WP_Error
      */
-    public function delete(array $conditionValue): bool|int
+    public function delete(array $conditionValue): bool|int|WP_Error
     {
         if (empty($conditionValue)) {
             return false;
@@ -140,7 +147,9 @@ abstract class WordPressDatabaseUtiliyClass
         global $wpdb;
 
         $deleted = $wpdb->delete($this->tableName, $conditionValue);
-
+        if($deleted < 0){
+            return new WP_Error('delete-from-fse-theme-synch', 'It was not possible to delete from db.', $conditionValue);
+        }
         return $deleted;
     }
 }

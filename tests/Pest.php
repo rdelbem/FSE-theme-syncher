@@ -12,6 +12,7 @@
 */
 
 // uses(Tests\TestCase::class)->in('Feature');
+// uses(Tests\FSEDatabaseTest::class)->in('Unit/FSEDatabaseTest.php');
 
 /*
 |--------------------------------------------------------------------------

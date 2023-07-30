@@ -6,6 +6,11 @@
       "FseThemeSyncher\\": "src/"
     }
   },
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\": "tests/"
+    }
+  },
   "authors": [
     {
       "name": "rdelbem",
@@ -16,10 +21,12 @@
     "vimeo/psalm": "^5.12",
     "pestphp/pest": "^2.8",
     "squizlabs/php_codesniffer": "^3.7",
-    "dealerdirect/phpcodesniffer-composer-installer": "^1.0"
+    "dealerdirect/phpcodesniffer-composer-installer": "^1.0",
+    "mockery/mockery": "^1.6"
   },
   "scripts": {
     "psalm": "vendor/bin/psalm --show-info=true",
+    "test": "vendor/bin/pest",
     "lint": "vendor/bin/phpcs **/*.php",
     "lint-fix": "vendor/bin/phpcbf **/*.php",
     "cs:fix-filtered": [
