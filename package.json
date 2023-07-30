@@ -19,7 +19,7 @@
       "prettier --write",
       "eslint"
     ],
-    "*.php": ["composer cs:fix-filtered", "composer psalm"]
+    "src/*.php": ["composer cs:fix-filtered", "composer psalm"]
   },
   "author": "",
   "license": "ISC",
